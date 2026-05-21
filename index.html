@@ -1,0 +1,1246 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Pantelis Georgiadis — Open source projects in medical imaging, DICOM, and healthcare interoperability."
+    />
+    <title>Pantelis Georgiadis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #06060b;
+        --bg2: #0c0c14;
+        --card: #0f0f1a;
+        --card-hover: #161625;
+        --border: rgba(255, 255, 255, 0.07);
+        --border-hi: rgba(255, 255, 255, 0.13);
+        --text: #eeeef6;
+        --text-2: #9494b0;
+        --text-3: #4a4a6a;
+        --ind: #818cf8;
+        --vio: #c084fc;
+        --cya: #22d3ee;
+        --grad: linear-gradient(135deg, #818cf8 0%, #c084fc 50%, #22d3ee 100%);
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      ::-webkit-scrollbar {
+        width: 5px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #2a2a3a;
+        border-radius: 99px;
+      }
+
+      nav {
+        position: fixed;
+        inset: 0 0 auto 0;
+        z-index: 200;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 40px;
+        height: 60px;
+        background: rgba(6, 6, 11, 0.75);
+        backdrop-filter: blur(24px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text);
+        text-decoration: none;
+        letter-spacing: -0.3px;
+      }
+
+      .nav-gem {
+        width: 28px;
+        height: 28px;
+        border-radius: 7px;
+        background: var(--grad);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 800;
+        color: #fff;
+        flex-shrink: 0;
+      }
+
+      .nav-right {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 8px 18px;
+        border-radius: 9px;
+        font-size: 13px;
+        font-weight: 500;
+        font-family: inherit;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s ease;
+      }
+      .btn-outline {
+        color: var(--text-2);
+        background: transparent;
+        border: 1px solid var(--border-hi);
+      }
+      .btn-outline:hover {
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .btn-grad {
+        color: #fff;
+        border: none;
+        background: var(--grad);
+        background-size: 200%;
+      }
+      .btn-grad:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 24px rgba(129, 140, 248, 0.35);
+      }
+
+      .hero {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 120px 40px 100px;
+        overflow: hidden;
+      }
+
+      .hero-grid {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+        background-size: 56px 56px;
+        mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, black 30%, transparent 80%);
+      }
+
+      .orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(90px);
+        pointer-events: none;
+        z-index: 0;
+      }
+      .orb-a {
+        width: 560px;
+        height: 560px;
+        top: -160px;
+        left: -120px;
+        background: rgba(129, 140, 248, 0.11);
+      }
+      .orb-b {
+        width: 420px;
+        height: 420px;
+        top: 80px;
+        right: -80px;
+        background: rgba(192, 132, 252, 0.09);
+      }
+      .orb-c {
+        width: 380px;
+        height: 380px;
+        bottom: -60px;
+        left: 38%;
+        background: rgba(34, 211, 238, 0.07);
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 820px;
+        width: 100%;
+      }
+
+      .avatar-ring {
+        display: block;
+        width: fit-content;
+        padding: 3px;
+        border-radius: 50%;
+        background: var(--grad);
+        margin: 0 auto 28px;
+      }
+      .avatar-ring img {
+        width: 84px;
+        height: 84px;
+        border-radius: 50%;
+        display: block;
+        border: 3px solid var(--bg);
+        object-fit: cover;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 16px;
+        border-radius: 99px;
+        border: 1px solid var(--border-hi);
+        background: rgba(255, 255, 255, 0.04);
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-2);
+        text-transform: uppercase;
+        letter-spacing: 1.8px;
+        margin-bottom: 28px;
+      }
+      .eyebrow-pulse {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--cya);
+        animation: pulse 2.2s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(0.75);
+          opacity: 0.4;
+        }
+      }
+
+      .hero-h1 {
+        font-size: clamp(3.2rem, 9vw, 7rem);
+        font-weight: 900;
+        letter-spacing: -4px;
+        line-height: 1;
+        margin-bottom: 22px;
+      }
+      .hero-h1 .line-plain {
+        display: block;
+        background: linear-gradient(180deg, #fff 40%, rgba(255, 255, 255, 0.5));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .hero-h1 .line-grad {
+        display: block;
+        background: var(--grad);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        padding-bottom: 0.12em;
+      }
+
+      .hero-sub {
+        font-size: 17px;
+        color: var(--text-2);
+        max-width: 520px;
+        margin: 0 auto 44px;
+        line-height: 1.75;
+        font-weight: 400;
+      }
+
+      .stats-bar {
+        display: inline-flex;
+        align-items: stretch;
+        border: 1px solid var(--border-hi);
+        border-radius: 14px;
+        overflow: hidden;
+        margin-bottom: 40px;
+      }
+      .stat-cell {
+        padding: 16px 28px;
+        text-align: center;
+        border-right: 1px solid var(--border);
+      }
+      .stat-cell:last-child {
+        border-right: none;
+      }
+      .stat-num {
+        display: block;
+        font-size: 2rem;
+        font-weight: 800;
+        letter-spacing: -1.5px;
+        background: var(--grad);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1.1;
+      }
+      .stat-lbl {
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--text-3);
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+      }
+
+      .cta-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .scroll-hint {
+        position: absolute;
+        bottom: 28px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--text-3);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        animation: fadeUp 1.5s ease 1.2s both;
+      }
+      .scroll-hint::after {
+        content: '';
+        width: 1px;
+        height: 36px;
+        background: linear-gradient(to bottom, var(--text-3), transparent);
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateX(-50%) translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(-50%) translateY(0);
+        }
+      }
+
+      .projects {
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 88px 40px 120px;
+      }
+
+      .sec-eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+      .sec-num {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        border: 1px solid var(--border-hi);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text-3);
+        font-family: 'JetBrains Mono', monospace;
+      }
+      .sec-tag {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text-3);
+        text-transform: uppercase;
+        letter-spacing: 2.2px;
+      }
+
+      .sec-title {
+        font-size: clamp(2rem, 4.5vw, 3.4rem);
+        font-weight: 800;
+        letter-spacing: -2px;
+        line-height: 1.1;
+        margin-bottom: 56px;
+        color: var(--text);
+      }
+      .sec-title .g {
+        background: var(--grad);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 36px;
+      }
+
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+
+      .f-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 14px;
+        border-radius: 99px;
+        font-size: 12px;
+        font-weight: 500;
+        font-family: inherit;
+        cursor: pointer;
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--text-2);
+        transition: all 0.2s;
+      }
+      .f-btn:hover {
+        border-color: var(--border-hi);
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .f-btn.active {
+        background: rgba(129, 140, 248, 0.1);
+        border-color: rgba(129, 140, 248, 0.28);
+        color: var(--ind);
+      }
+      .f-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+      }
+      .f-cnt {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        opacity: 0.65;
+      }
+
+      .search-box {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+      .search-box svg {
+        position: absolute;
+        left: 12px;
+        color: var(--text-3);
+        pointer-events: none;
+      }
+      .search-box input {
+        padding: 7px 14px 7px 36px;
+        border-radius: 99px;
+        border: 1px solid var(--border);
+        background: transparent;
+        font-size: 12px;
+        color: var(--text);
+        font-family: inherit;
+        outline: none;
+        transition: all 0.2s;
+        width: 210px;
+      }
+      .search-box input::placeholder {
+        color: var(--text-3);
+      }
+      .search-box input:focus {
+        border-color: rgba(129, 140, 248, 0.4);
+        background: rgba(129, 140, 248, 0.05);
+      }
+
+      #grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+        gap: 14px;
+      }
+
+      .skel {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 24px;
+        height: 192px;
+        animation: shimmer 1.6s ease-in-out infinite;
+      }
+      @keyframes shimmer {
+        0%,
+        100% {
+          opacity: 0.6;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      .card.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .card::after {
+        content: '';
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: 2px;
+        background: var(--lc, var(--grad));
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .card:hover {
+        background: var(--card-hover);
+        border-color: var(--border-hi);
+        transform: translateY(-5px);
+        box-shadow:
+          0 24px 64px rgba(0, 0, 0, 0.45),
+          0 0 0 1px var(--border-hi);
+      }
+      .card:hover::after {
+        opacity: 1;
+      }
+
+      .card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 12px;
+        gap: 10px;
+      }
+      .card-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 9px;
+        background: rgba(255, 255, 255, 0.06);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+      .badges {
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+      }
+      .badge {
+        padding: 3px 9px;
+        border-radius: 99px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+      }
+      .badge-feat {
+        background: rgba(129, 140, 248, 0.1);
+        color: var(--ind);
+        border: 1px solid rgba(129, 140, 248, 0.22);
+      }
+      .card-name {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: -0.4px;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .card-arrow {
+        color: var(--ind);
+        opacity: 0;
+        transform: translateX(-6px);
+        transition: all 0.2s;
+        line-height: 1;
+      }
+      .card:hover .card-arrow {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      .card-desc {
+        font-size: 13px;
+        color: var(--text-2);
+        line-height: 1.65;
+        flex: 1;
+        margin-bottom: 14px;
+      }
+      .card-desc em {
+        opacity: 0.35;
+        font-style: italic;
+      }
+      .topics {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin-bottom: 14px;
+      }
+      .topic {
+        padding: 3px 9px;
+        border-radius: 99px;
+        background: rgba(255, 255, 255, 0.05);
+        font-size: 10px;
+        font-weight: 500;
+        color: var(--text-3);
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      .card-foot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 14px;
+        border-top: 1px solid var(--border);
+        margin-top: auto;
+      }
+      .lang-tag {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: var(--text-2);
+      }
+      .lang-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .stat-group {
+        display: flex;
+        gap: 12px;
+      }
+      .stat {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 11px;
+        color: var(--text-2);
+        font-family: 'JetBrains Mono', monospace;
+      }
+      .stat-npm {
+        color: #4ade80;
+      }
+
+      .empty {
+        grid-column: 1/-1;
+        text-align: center;
+        padding: 64px 40px;
+        color: var(--text-3);
+        font-size: 14px;
+      }
+      .empty a {
+        color: var(--ind);
+        text-decoration: none;
+      }
+
+      footer {
+        border-top: 1px solid var(--border);
+        text-align: center;
+        padding: 36px 40px;
+        font-size: 12px;
+        color: var(--text-3);
+      }
+      footer a {
+        color: var(--text-2);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      footer a:hover {
+        color: var(--text);
+      }
+
+      @media (max-width: 780px) {
+        nav {
+          padding: 0 20px;
+        }
+        .hero {
+          padding: 100px 20px 80px;
+        }
+        .hero-h1 {
+          letter-spacing: -2.5px;
+        }
+        .stats-bar {
+          flex-direction: column;
+          width: 100%;
+          max-width: 280px;
+        }
+        .stat-cell {
+          border-right: none;
+          border-bottom: 1px solid var(--border);
+        }
+        .stat-cell:last-child {
+          border-bottom: none;
+        }
+        .projects {
+          padding: 60px 20px 80px;
+        }
+        #grid {
+          grid-template-columns: 1fr;
+        }
+        .toolbar {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .search-box input {
+          width: 100%;
+        }
+        footer {
+          padding: 28px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="#" class="nav-brand">
+        <span class="nav-gem">PG</span>
+        Pantelis Georgiadis
+      </a>
+      <div class="nav-right">
+        <a
+          href="https://github.com/PantelisGeorgiadis"
+          target="_blank"
+          rel="noopener"
+          class="btn btn-outline"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.57v-2c-3.34.72-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.69.83.57C20.57 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z"
+            />
+          </svg>
+          GitHub
+        </a>
+      </div>
+    </nav>
+
+    <section class="hero" id="top">
+      <div class="hero-grid"></div>
+      <div class="orb orb-a"></div>
+      <div class="orb orb-b"></div>
+      <div class="orb orb-c"></div>
+
+      <div class="hero-inner">
+        <div class="avatar-ring">
+          <img
+            id="hero-img"
+            src="https://avatars.githubusercontent.com/u/484163?v=4"
+            alt="Pantelis Georgiadis"
+          />
+        </div>
+
+        <div class="eyebrow">
+          <span class="eyebrow-pulse"></span>
+          Medical Imaging Software Developer
+        </div>
+
+        <h1 class="hero-h1">
+          <span class="line-plain">Pantelis</span>
+          <span class="line-grad">Georgiadis</span>
+        </h1>
+
+        <p class="hero-sub" id="hero-bio">
+          Building open-source tools for medical imaging, DICOM, and healthcare interoperability —
+          focused on JavaScript, Node.js, and modern imaging pipelines.
+        </p>
+
+        <div class="stats-bar">
+          <div class="stat-cell">
+            <span class="stat-num" id="s-stars">—</span>
+            <span class="stat-lbl">GitHub Stars</span>
+          </div>
+          <div class="stat-cell">
+            <span class="stat-num" id="s-repos">—</span>
+            <span class="stat-lbl">Repositories</span>
+          </div>
+          <div class="stat-cell">
+            <span class="stat-num" id="s-gists">—</span>
+            <span class="stat-lbl">Gists</span>
+          </div>
+          <div class="stat-cell">
+            <span class="stat-num" id="s-followers">—</span>
+            <span class="stat-lbl">Followers</span>
+          </div>
+        </div>
+
+        <div class="cta-row">
+          <a
+            href="https://github.com/PantelisGeorgiadis"
+            target="_blank"
+            rel="noopener"
+            class="btn btn-grad"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.57v-2c-3.34.72-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.69.83.57C20.57 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z"
+              />
+            </svg>
+            GitHub Profile
+          </a>
+          <a href="#projects" class="btn btn-outline">Explore Projects ↓</a>
+          <a href="#gists" class="btn btn-outline">Explore Gists ↓</a>
+        </div>
+      </div>
+
+      <div class="scroll-hint">scroll</div>
+    </section>
+
+    <section class="projects" id="projects">
+      <div class="sec-eyebrow">
+        <span class="sec-num">①</span>
+        <span class="sec-tag">Open Source</span>
+      </div>
+      <h2 class="sec-title">All <span class="g">projects,</span><br />in one place.</h2>
+
+      <div class="toolbar">
+        <div class="filters" id="filters">
+          <button class="f-btn active" data-lang="all">
+            All <span class="f-cnt" id="cnt-all">…</span>
+          </button>
+        </div>
+        <div class="search-box">
+          <svg
+            width="13"
+            height="13"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.35-4.35" />
+          </svg>
+          <input
+            id="q"
+            type="search"
+            placeholder="Search repositories…"
+            autocomplete="off"
+            spellcheck="false"
+          />
+        </div>
+      </div>
+
+      <div id="grid">
+        <div class="skel"></div>
+        <div class="skel"></div>
+        <div class="skel"></div>
+        <div class="skel"></div>
+        <div class="skel"></div>
+        <div class="skel"></div>
+      </div>
+    </section>
+
+    <section class="projects" id="gists">
+      <div class="sec-eyebrow">
+        <span class="sec-num">②</span>
+        <span class="sec-tag">Gists</span>
+      </div>
+      <h2 class="sec-title">Code <span class="g">snippets</span><br />worth sharing.</h2>
+      <div id="gist-grid">
+        <div class="skel"></div>
+        <div class="skel"></div>
+        <div class="skel"></div>
+      </div>
+    </section>
+
+    <footer>
+      <p>
+        &copy; <span id="yr"></span>
+        <a href="https://github.com/PantelisGeorgiadis" target="_blank" rel="noopener"
+          >Pantelis Georgiadis</a
+        >
+        &nbsp;·&nbsp; Data via
+        <a href="https://docs.github.com/en/rest" target="_blank" rel="noopener">GitHub REST API</a>
+        &amp;
+        <a href="https://api.npmjs.org/" target="_blank" rel="noopener">npm</a>
+      </p>
+    </footer>
+
+    <script>
+      (function () {
+        'use strict';
+
+        const USER = 'PantelisGeorgiadis';
+        document.getElementById('yr').textContent = new Date().getFullYear();
+
+        const LANG_COLOR = {
+          JavaScript: '#f1e05a',
+          TypeScript: '#3178c6',
+          'C#': '#178600',
+          'C++': '#f34b7d',
+          C: '#555555',
+          Python: '#3572A5',
+          Go: '#00ADD8',
+          Rust: '#dea584',
+          HTML: '#e34c26',
+          CSS: '#563d7c',
+        };
+
+        const ICONS = {
+          dicom: '🏥',
+          ecg: '💓',
+          imaging: '🖼️',
+          webgpu: '🚀',
+          nifti: '🧠',
+          hl7: '🏨',
+          mllp: '📡',
+          htj2k: '⚡',
+          j2k: '⚡',
+          jpeg: '🖼️',
+          codec: '🔧',
+          mcp: '🤖',
+          event: '⚡',
+          rle: '🔧',
+          pacs: '🖧',
+          sdk: '🔌',
+          pattern: '🔬',
+          recognition: '🔬',
+          default: '📦',
+        };
+
+        function icon(r) {
+          const hay = [r.name, r.description, ...(r.topics || [])].join(' ').toLowerCase();
+          for (const [k, v] of Object.entries(ICONS)) if (hay.includes(k)) return v;
+          return ICONS.default;
+        }
+
+        function fmt(n) {
+          return n >= 1000 ? (n / 1000).toFixed(1) + 'k' : String(n);
+        }
+
+        function animCount(el, target, delay = 0) {
+          const dur = 1400,
+            start = performance.now() + delay;
+          function step(now) {
+            if (now < start) {
+              requestAnimationFrame(step);
+              return;
+            }
+            const t = Math.min((now - start) / dur, 1);
+            const e = 1 - Math.pow(1 - t, 3);
+            el.textContent = Math.round(e * target);
+            if (t < 1) requestAnimationFrame(step);
+            else el.textContent = fmt(target);
+          }
+          requestAnimationFrame(step);
+        }
+
+        let repos = [];
+        let lang = 'all';
+        let query = '';
+        let npmDownloads = {};
+
+        async function load() {
+          try {
+            const [uRes, rRes] = await Promise.all([
+              fetch(`https://api.github.com/users/${USER}`),
+              fetch(`https://api.github.com/users/${USER}/repos?per_page=100&sort=stars`),
+            ]);
+            const user = await uRes.json();
+            const raw = await rRes.json();
+
+            if (user.bio) document.getElementById('hero-bio').textContent = user.bio;
+
+            repos = raw.filter((r) => r.name !== USER && !r.fork);
+
+            const stars = repos.reduce((s, r) => s + r.stargazers_count, 0);
+
+            animCount(document.getElementById('s-stars'), stars, 0);
+            animCount(document.getElementById('s-repos'), repos.length, 80);
+            animCount(document.getElementById('s-followers'), user.followers || 0, 160);
+            animCount(document.getElementById('s-gists'), user.public_gists || 0, 240);
+
+            const names = repos.map((r) => r.name).join(',');
+            try {
+              const npmRes = await fetch(
+                `https://api.npmjs.org/downloads/point/last-week/${names}`,
+              );
+              const npmData = await npmRes.json();
+              repos.forEach((r) => {
+                if (npmData[r.name] && npmData[r.name].downloads)
+                  npmDownloads[r.name] = npmData[r.name].downloads;
+              });
+            } catch (_) {}
+
+            buildFilters();
+            render();
+
+            try {
+              const gRes = await fetch(`https://api.github.com/users/${USER}/gists?per_page=100`);
+              const gists = await gRes.json();
+              buildGists(gists);
+            } catch (_) {
+              document.getElementById('gist-grid').innerHTML =
+                '<div class="empty">Could not load gists.</div>';
+            }
+          } catch (_) {
+            document.getElementById('grid').innerHTML = `
+        <div class="empty">
+          <p>Could not load repositories from the GitHub API.</p>
+          <p style="margin-top:8px"><a href="https://github.com/${USER}" target="_blank" rel="noopener">Browse on GitHub →</a></p>
+        </div>`;
+          }
+        }
+
+        function buildFilters() {
+          const counts = {};
+          repos.forEach((r) => {
+            if (r.language) counts[r.language] = (counts[r.language] || 0) + 1;
+          });
+
+          document.getElementById('cnt-all').textContent = repos.length;
+
+          const container = document.getElementById('filters');
+          Object.entries(counts)
+            .sort((a, b) => b[1] - a[1])
+            .forEach(([l, c]) => {
+              const color = LANG_COLOR[l] || '#888';
+              const b = document.createElement('button');
+              b.className = 'f-btn';
+              b.dataset.lang = l;
+              b.innerHTML = `<span class="f-dot" style="background:${color}"></span>${l}<span class="f-cnt">${c}</span>`;
+              b.addEventListener('click', () => {
+                setLang(l, b);
+              });
+              container.appendChild(b);
+            });
+
+          container
+            .querySelector('[data-lang="all"]')
+            .addEventListener('click', (e) => setLang('all', e.currentTarget));
+        }
+
+        function setLang(l, btn) {
+          lang = l;
+          document.querySelectorAll('.f-btn').forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+          render();
+        }
+
+        function render() {
+          let list = repos;
+
+          if (lang !== 'all') list = list.filter((r) => r.language === lang);
+          if (query) {
+            const q = query.toLowerCase();
+            list = list.filter(
+              (r) =>
+                (r.name || '').toLowerCase().includes(q) ||
+                (r.description || '').toLowerCase().includes(q) ||
+                (r.topics || []).some((t) => t.includes(q)),
+            );
+          }
+
+          list.sort((a, b) => b.stargazers_count - a.stargazers_count);
+
+          const grid = document.getElementById('grid');
+          grid.innerHTML = '';
+
+          if (!list.length) {
+            grid.innerHTML = `<div class="empty">No repositories match your search.</div>`;
+            return;
+          }
+
+          const obs = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((e) => {
+                if (e.isIntersecting) {
+                  e.target.classList.add('show');
+                  obs.unobserve(e.target);
+                }
+              });
+            },
+            { threshold: 0.08 },
+          );
+
+          list.forEach((r, i) => {
+            const card = makeCard(r, i);
+            grid.appendChild(card);
+            obs.observe(card);
+          });
+        }
+
+        function makeCard(r, idx) {
+          const lc = LANG_COLOR[r.language] || null;
+          const emoji = icon(r);
+          const feat = r.stargazers_count >= 10;
+          const topics = (r.topics || []).slice(0, 5);
+
+          const a = document.createElement('a');
+          a.className = 'card';
+          a.href = r.html_url;
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          if (lc) a.style.setProperty('--lc', lc);
+          a.style.transitionDelay = `${Math.min(idx, 20) * 38}ms`;
+          const dl = npmDownloads[r.name];
+
+          a.innerHTML = `
+      <div class="card-top">
+        <div class="card-icon">${emoji}</div>
+        <div class="badges">
+          ${feat ? '<span class="badge badge-feat">★ Featured</span>' : ''}
+        </div>
+      </div>
+      <div class="card-name">
+        ${escHtml(r.name)}
+        <span class="card-arrow">→</span>
+      </div>
+      <p class="card-desc">${r.description ? escHtml(r.description) : '<em>No description</em>'}</p>
+      ${topics.length ? `<div class="topics">${topics.map((t) => `<span class="topic">${escHtml(t)}</span>`).join('')}</div>` : ''}
+      <div class="card-foot">
+        <div class="lang-tag">
+          ${lc ? `<span class="lang-dot" style="background:${lc}"></span>` : ''}
+          <span>${r.language || '—'}</span>
+        </div>
+        <div class="stat-group">
+          <span class="stat">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/>
+            </svg>
+            ${fmt(r.stargazers_count)}
+          </span>
+          <span class="stat">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7 18c0-2.8 2.2-5 5-5s5 2.2 5 5"/>
+              <path d="M7 6c0 2.8 2.2 5 5 5s5-2.2 5-5"/>
+              <circle cx="12" cy="6" r="2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>
+            </svg>
+            ${fmt(r.forks_count)}
+          </span>
+          ${
+            dl
+              ? `<span class="stat stat-npm" title="Weekly npm downloads">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm4 4h2v6H9V9zm4 0h2v4h-2V9z"/></svg>
+            ${fmt(dl)}
+          </span>`
+              : ''
+          }
+        </div>
+      </div>`;
+
+          return a;
+        }
+
+        function escHtml(s) {
+          return String(s)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+        }
+
+        function buildGists(gists) {
+          const grid = document.getElementById('gist-grid');
+          grid.innerHTML = '';
+          if (!gists || !gists.length) {
+            grid.innerHTML = '<div class="empty">No public gists found.</div>';
+            return;
+          }
+          const obs = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((e) => {
+                if (e.isIntersecting) {
+                  e.target.classList.add('show');
+                  obs.unobserve(e.target);
+                }
+              });
+            },
+            { threshold: 0.08 },
+          );
+          gists.forEach((g, i) => {
+            const files = Object.values(g.files);
+            const langs = [...new Set(files.map((f) => f.language).filter(Boolean))];
+            const lc = LANG_COLOR[langs[0]] || null;
+            const title = g.description || files[0]?.filename || 'Untitled';
+            const a = document.createElement('a');
+            a.className = 'card';
+            a.href = g.html_url;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            if (lc) a.style.setProperty('--lc', lc);
+            a.style.transitionDelay = `${Math.min(i, 20) * 38}ms`;
+            a.innerHTML = `
+      <div class="card-top">
+        <div class="card-icon">📝</div>
+        <div class="badges"></div>
+      </div>
+      <div class="card-name">${escHtml(title)}<span class="card-arrow">→</span></div>
+      ${files.length > 1 ? `<div class="topics">${files.map((f) => `<span class="topic">${escHtml(f.filename)}</span>`).join('')}</div>` : ''}
+      <div class="card-foot">
+        <div class="lang-tag">
+          ${lc ? `<span class="lang-dot" style="background:${lc}"></span>` : ''}
+          <span>${langs.join(', ') || '—'}</span>
+        </div>
+        <div class="stat-group">
+          <span class="stat">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            ${files.length} ${files.length === 1 ? 'file' : 'files'}
+          </span>
+        </div>
+      </div>`;
+            grid.appendChild(a);
+            obs.observe(a);
+          });
+        }
+
+        document.getElementById('q').addEventListener('input', (e) => {
+          query = e.target.value.trim();
+          render();
+        });
+
+        load();
+      })();
+    </script>
+  </body>
+</html>
