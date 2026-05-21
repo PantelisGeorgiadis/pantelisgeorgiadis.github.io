@@ -1,6 +1,6 @@
 # pantelisgeorgiadis.github.io
 
-Personal portfolio page listing my public GitHub projects and gists.
+Personal portfolio page — public GitHub projects, gists, education and professional experience.
 
 Live at **https://pantelisgeorgiadis.github.io**
 
